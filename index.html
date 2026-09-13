@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Vino Prasetyo Al Wahid </title>
+    <script src="https://cdn.tailwindcss.com"></scrihpt>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#EC4899',
+                        accent: '#10B981',
+                        danger: '#EF4444',
+                        dark: '#0F172A',
+                        card: '#1E293B',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #0F172A 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: white;
+            padding-bottom: 90px;
+        }
+
+        .text-gradient {
+            background: linear-gradient(90deg, #4F46E5, #EC4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .card-style {
+            background: rgba(30, 41, 59, 0.85);
+            border-radius: 16px;
+            border: 1px solid rgba(79, 70, 229, 0.2);
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            margin-bottom: 16px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #4F46E5, #7C3AED);
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            width: 100%;
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.97);
+        }
+
+        .btn-success {
+            background: linear-gradient(90deg, #10B981, #059669);
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            width: 100%;
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn-success:active {
+            transform: scale(0.97);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 500;
+            width: 100%;
+            color: white;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-outline:hover {
+            background: rgba(79, 70, 229, 0.1);
+        }
+
+        .option-btn {
+            background: rgba(51, 65, 85, 0.6);
+            border: 2px solid rgba(100, 116, 139, 0.4);
+            padding: 14px 16px;
+            border-radius: 12px;
+            text-align: left;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 15px;
+        }
+
+        .option-btn:hover {
+            border-color: #4F46E5;
+            background: rgba(79, 70, 229, 0.1);
+        }
+
+        .option-correct {
+            background: rgba(16, 185, 129, 0.15) !important;
+            border-color: #10B981 !important;
+            color: #6EE7B7;
+        }
+
+        .option-wrong {
+            background: rgba(239, 68, 68, 0.15) !important;
+            border-color: #EF4444 !important;
+            color: #FCA5A5;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(100, 116, 139, 0.4);
+            background: rgba(30, 41, 59, 0.6);
+            color: white;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #4F46E5;
+        }
+
+        .error-text {
+            color: #FCA5A5;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+
+        nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 2px solid rgba(79, 70, 229, 0.25);
+            padding: 8px 10px;
+            z-index: 999;
+        }
+
+        .nav-container {
+            max-width: 500px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 4px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.25s;
+            color: #94A3B8;
+        }
+
+        .nav-item.active {
+            background: rgba(79, 70, 229, 0.15);
+            color: #818CF8;
+            border-top: 3px solid #4F46E5;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .nav-item span {
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .page {
+            display: none;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0 16px;
+            animation: fadeIn 0.35s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.65);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .popup-overlay.show {
+            display: flex;
+        }
+
+        .popup-box {
+            background: #1E293B;
+            border-radius: 16px;
+            padding: 28px;
+            max-width: 360px;
+            width: 100%;
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .text-indigo { color: #818CF8; }
+        .text-pink { color: #F9A8D4; }
+        .text-emerald { color: #6EE7B7; }
+        .text-slate { color: #94A3B8; }
+
+        .profile-img-container {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4F46E5, #EC4899);
+            padding: 4px;
+            margin: 0 auto 16px;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+<header style="text-align: center; padding: 24px 16px 12px;">
+    <h1 style="font-size: 24px; font-weight: 800;" class="text-gradient">Vino Prasetyo Al Wahid</h1>
+    <p style="color: #94A3B8; margin-top: 6px;">Portofolio Pribadi • Siswa & Pengembang Teknologi</p>
+</header>
+
+<!-- ============= HALAMAN BERANDA ============= -->
+<div id="page-beranda" class="page active">
+    <div class="card-style" style="text-align: center;">
+        <div class="profile-img-container">
+            <img src="profil.jpg" alt="Foto Vino" class="profile-img" onerror="this.src='https://via.placeholder.com/130/4F46E5/FFFFFF?text=V'">
+        </div>
+        <h2 class="text-indigo" style="font-size: 22px; margin-bottom: 4px;">Vino Prasetyo Al Wahid</h2>
+        <p class="text-pink" style="margin-bottom: 4px;">@vinoprasetyoalwahid-sudo</p>
+        <p class="text-emerald" style="margin-bottom: 16px;">Pelajar SMK • Kelas 10 • Jurusan RPL</p>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px;">
+            <div style="background: rgba(51,65,85,0.5); border-radius: 10px; padding: 12px;">
+                <i class="fa fa-graduation-cap text-indigo"></i>
+                <span class="text-indigo" style="font-size: 13px; margin-left: 6px;">SMKN 1 Jakarta Pusat</span>
+            </div>
+            <div style="background: rgba(51,65,85,0.5); border-radius: 10px; padding: 12px;">
+                <i class="fa fa-map-marker text-pink"></i>
+                <span class="text-pink" style="font-size: 13px; margin-left: 6px;">Jakarta Utara</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-style">
+        <h3 class="text-indigo" style="font-size: 17px; font-weight: 600; margin-bottom: 10px;">
+            <i class="fa fa-user" style="margin-right: 8px;"></i>Tentang Saya
+        </h3>
+        <p class="text-pink" style="line-height: 1.7;">
+            Halo! 👋 Saya <strong class="text-indigo">Vino</strong>, siswa SMKN 1 Jakarta Pusat jurusan RPL. Saya memilih sekolah ini karena reputasinya yang luar biasa dalam prestasi. Teknologi adalah masa depan, dan saya ingin menjadi bagian dari perubahan itu! 🚀
+        </p>
+        <p class="text-emerald" style="line-height: 1.7; margin-top: 10px;">
+            Sekarang saya sudah memiliki skill dalam pemrograman, elektronik, dan IoT. Semangat saya ada di bidang teknologi yang bermanfaat bagi kehidupan manusia. 💡
+        </p>
+    </div>
+
+    <div class="card-style">
+        <h3 class="text-indigo" style="font-size: 17px; font-weight: 600; margin-bottom: 14px;">
+            <i class="fa fa-link" style="margin-right: 8px;"></i>Hubungi Saya
+        </h3>
+        <button class="btn-success" onclick="openWA()">
+            <i class="fa fa-whatsapp" style="margin-right: 8px;"></i>Chat WhatsApp
+        </button>
+        <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px;">
+            <a href="mailto:vinoprasetyoalwahid@gmail.com" style="color: #818CF8; font-size: 14px; text-decoration: none; padding: 10px; background: rgba(51,65,85,0.4); border-radius: 10px; display: flex; align-items: center;">
+                <i class="fa fa-envelope" style="margin-right: 10px; color: #F87171;"></i>
+                <span class="text-indigo">vinoprasetyoalwahid@gmail.com</span>
+            </a>
+            <a href="https://github.com/vinoprasetyoalwahid-sudo" target="_blank" style="color: white; font-size: 14px; text-decoration: none; padding: 10px; background: rgba(51,65,85,0.4); border-radius: 10px; display: flex; align-items: center;">
+                <i class="fa fa-github" style="margin-right: 10px;"></i>
+                <span class="text-pink">GitHub</span>
+            </a>
+            <a href="https://instagram.com/stor.ebilly" target="_blank" style="color: white; font-size: 14px; text-decoration: none; padding: 10px; background: rgba(51,65,85,0.4); border-radius: 10px; display: flex; align-items: center;">
+                <i class="fa fa-instagram" style="margin-right: 10px; color: #F472B6;"></i>
+                <span class="text-emerald">@stor.ebilly</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- ============= HALAMAN BIODATA ============= -->
+<div id="page-biodata" class="page">
+    <h2 class="text-gradient">📋 Biodata Lengkap</h2>
+    
+    <div class="card-style">
+        <div style="padding: 12px 0; border-bottom: 1px solid rgba(100,116,139,0.25); display: flex; justify-content: space-between;">
+            <span class="text-indigo">Nama Lengkap</span>
+            <span class="text-pink" style="font-weight: 500;">Vino Prasetyo Al Wahid</span>
+        </div>
+        <div style="padding: 12px 0; border-bottom: 1px solid rgba(100,116,139,0.25); display: flex; justify-content: space-between;">
+            <span class="text-indigo">Panggilan</span>
+            <span class="text-emerald" style="font-weight: 500;">Vino</span>
+        </div>
+        <div style="padding: 12px 0; border-bottom: 1px solid rgba(100,116,139,0.25); display: flex; justify-content: space-between;">
+            <span class="text-indigo">Status</span>
+            <span class="text-pink" style="font-weight: 500;">Pelajar SMK Kelas 10</span>
+        </div>
+        <div style="padding: 12px 0; border-bottom: 1px solid rgba(100,116,139,0.25); display: flex; justify-content: space-between;">
+            <span class="text-indigo">Jurusan</span>
+            <span class="text-emerald" style="font-weight: 500;">RPL</span>
+        </div>
+        <div style="padding: 12px 0; border-bottom: 1px solid rgba(100,116,139,0.25); display: flex; justify-content: space-between;">
+            <span class="text-indigo">Sekolah</span>
+            <span class="text-pink" style="font-weight: 500; text-align: right; max-width: 60%;">SMKN 1 Jakarta Pusat</span>
+        </div>
+        <div style="padding: 12px 0; display: flex; justify-content: space-between;">
+            <span class="text-indigo">Domisili</span>
+            <span class="text-emerald" style="font-weight: 500;">Jakarta Utara</span>
+        </div>
+    </div>
+    
+    <div class="card-style">
+        <h3 class="text-indigo" style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">🎯 Latar Belakang</h3>
+        <p class="text-pink" style="line-height: 1.7;">
+            Saya memilih SMKN 1 Jakarta Pusat karena sekolah ini memiliki reputasi yang sangat baik dalam hal prestasi. Saya memilih jurusan RPL karena saya sangat tertarik dengan teknologi — menurut saya, teknologi adalah hal yang tidak akan pernah terlepas dari kehidupan manusia saat ini.
+        </p>
+    </div>
+</div>
+
+<!-- ============= HALAMAN KEAHLIAN ============= -->
+<div id="page-keahlian" class="page">
+    <h2 class="text-gradient">💻 Keahlian Saya</h2>
+    
+    <div class="card-style">
+        <h3 class="text-indigo" style="font-size: 16px; font-weight: 600; margin-bottom: 18px;">Bahasa Pemrograman</h3>
+        
+        <div style="margin-bottom: 18px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                <span class="text-pink">🌐 HTML</span>
+                <span class="text-emerald font-semibold">Mahir</span>
+            </div>
+            <div style="height: 8px; background: rgba(51,65,85,0.6); border-radius: 4px; overflow: hidden;">
+                <div style="width: 90%; height: 100%; background: linear-gradient(90deg, #4F46E5, #EC4899); border-radius: 4px;"></div>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 18px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                <span class="text-pink">⚡ C++</span>
+                <span class="text-emerald font-semibold">Sedang Berkembang</span>
+            </div>
+            <div style="height: 8px; background: rgba(51,65,85,0.6); border-radius: 4px; overflow: hidden;">
+                <div style="width: 75%; height: 100%; background: linear-gradient(90deg, #4F46E5, #EC4899); border-radius: 4px;"></div>
+            </div>
+        </div>
+        
+        <div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                <span class="text-pink">🐍 Python</span>
+                <span class="text-emerald font-semibold">Dasar - Menengah</span>
+            </div>
+            <div style="height: 8px; background: rgba(51,65,85,0.6); border-radius: 4px; overflow: hidden;">
+                <div style="width: 65%; height: 100%; background: linear-gradient(90deg, #4F46E5, #EC4899); border-radius: 4px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-style">
+        <h3 class="text-indigo" style="font-size: 16px; font-weight: 600; margin-bottom: 14px;">🔧 Kemampuan Lainnya</h3>
+        <ul style="list-style: none;">
+            <li style="padding: 10px 0; border-bottom: 1px solid rgba(100,116,139,0.15);">
+                <i class="fa fa-check-circle" style="color: #6EE7B7; margin-right: 10px;"></i>
+                <span class="text-pink">Pembuatan & Pemrograman Sistem IoT</span>
+            </li>
+            <li style="padding: 10px 0; border-bottom: 1px solid rgba(100,116,139,0.15);">
+                <i class="fa fa-check-circle" style="color: #6EE7B7; margin-right: 10px;"></i>
+                <span class="text-pink">Elektronik & Wiring Dasar</span>
+            </li>
+            <li style="padding: 10px 0;">
+                <i class="fa fa-check-circle" style="color: #6EE7B7; margin-right: 10px;"></i>
+                <span class="text-pink">Pemantauan & Kontrol Perangkat Jarak Jauh</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- ============= HALAMAN PROJECT ============= -->
+<div id="page-project" class="page">
+    <h2 class="text-gradient">🚀 Project Saya</h2>
+    
+    <div class="card-style">
+        <h3 class="text-indigo" style="font-size: 17px; font-weight: 600; margin-bottom: 6px;">🎮 Game Tebak Angka - C++</h3>
+        <span style="display: inline-block; background: rgba(16,185,129,0.15); color: #6EE7B7; font-size: 12px; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px;">Murni C++</span>
+        <p class="text-pink" style="line-height: 1.7;">
+            Game ini dibuat 100% menggunakan bahasa C++. Memanfaatkan fitur fungsi <code style="background: rgba(51,65,85,0.6); padding: 2px 8px; border-radius: 4px; color: #818CF8;">random</code>, perulangan <code style="background: rgba(51,65,85,0.6); padding: 2px 8px; border-radius: 4px; color: #818CF8;">while & for</code>, serta tipe data <code style="background: rgba(51,65,85,0.6); padding: 2px 8px; border-radius: 4px; color: #818CF8;">int</code>.
+        </p>
+    </div>
+
+    <div class="card-style">
+        <h3 class="text-indigo" style="font-size: 17px; font-weight: 600; margin-bottom: 6px;">💧 Water Adaptive Recovery and Energy System</h3>
+        <span style="display: inline-block; background: rgba(79,70,229,0.15); color: #818CF8; font-size: 12px; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px;">🌐 IoT Project</span>
+        <p class="text-pink" style="line-height: 1.7; margin-bottom: 10px;">
+            Sistem berbasis Internet of Things yang memanen air hujan untuk penyiraman tanaman otomatis dan pencegahan kebakaran dini.
+        </p>
+        <h4 class="text-indigo" style="font-size: 14px; font-weight: 600; margin-bottom: 8px;">Alat yang digunakan:</h4>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span style="background: rgba(51,65,85,0.5); padding: 5px 12px; border-radius: 6px; font-size: 12px;" class="text-pink">Sensor Kelembapan Tanah</span>
+            <span style="background: rgba(51,65,85,0.5); padding: 5px 12px; border-radius: 6px; font-size: 12px;" class="text-pink">Sensor Api</span>
+            <span style="background: rgba(51,65,85,0.5); padding: 5px 12px; border-radius: 6px; font-size: 12px;" class="text-pink">Sensor Water Level</span>
+            <span style="background: rgba(51,65,85,0.5); padding: 5px 12px; border-radius: 6px; font-size: 12px;" class="text-pink">Sensor Suhu (TMP)</span>
+            <span style="background: rgba(51,65,85,0.5); padding: 5px 12px; border-radius: 6px; font-size: 12px;" class="text-emerald">Buzzer</span>
+            <span style="background: rgba(51,65,85,0.5); padding: 5px 12px; border-radius: 6px; font-size: 12px;" class="text-emerald">MOSFET & Relay</span>
+            <span style="background: rgba(51,65,85,0.5); padding: 5px 12px; border-radius: 6px; font-size: 12px;" class="text-emerald">Baterai & Breadboard</span>
+        </div>
+        <p class="text-pink" style="line-height: 1.7; margin-top: 12px;">
+            Semua perangkat terhubung dengan sistem berbasis web, sehingga user dapat memantau, mengatur, dan mengendalikan sistem ini dari jarak jauh! 🌐
+        </p>
+    </div>
+</div>
+
+<!-- ============= HALAMAN PENGALAMAN ============= -->
+<div id="page-pengalaman" class="page">
+    <h2 class="text-gradient">🏆 Pengalaman & Kegiatan</h2>
+    
+    <div class="card-style">
+        <div style="display: flex; align-items: flex-start; gap: 14px; margin-bottom: 12px;">
+            <div style="width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg, #F59E0B, #F97316); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <i class="fa fa-trophy" style="font-size: 20px;"></i>
+            </div>
+            <div>
+                <h3 class="text-indigo" style="font-size: 16px; font-weight: 600;">Festival Maestro 2026</h3>
+                <p style="font-size: 12px; color: #6EE7B7; margin-top: 2px;">Sedang Berkompetisi • Bidang IoT • SMK/SMA</p>
+            </div>
+        </div>
+        <p class="text-pink" style="line-height: 1.7;">
+            Saat ini saya sedang berkompetisi dalam <strong>Festival Maestro 2026</strong> di bidang IoT. Lomba ini menuntut peserta untuk membuat, mendokumentasikan, dan memprogram sebuah alat yang berguna bagi kehidupan manusia serta terhubung dengan internet. Semangat! 💪🔥
+        </p>
+    </div>
+
+    <div class="card-style">
+        <div style="display: flex; align-items: flex-start; gap: 14px; margin-bottom: 12px;">
+            <div style="width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg, #10B981, #059669); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <i class="fa fa-university" style="font-size: 20px;"></i>
+            </div>
+            <div>
+                <h3 class="text-indigo" style="font-size: 16px; font-weight: 600;">Riset Teknologi di Universitas Indonesia</h3>
+                <p style="font-size: 12px; color: #6EE7B7; margin-top: 2px;">📅 19 September 2026 • Mendatang</p>
+            </div>
+        </div>
+        <p class="text-pink" style="line-height: 1.7;">
+            Akan mengikuti kegiatan riset teknologi di kampus ternama Universitas Indonesia. Siap menambah wawasan, pengalaman baru, dan bertemu banyak orang hebat! 🎓✨
+        </p>
+    </div>
+</div>
+
+<!-- ============= HALAMAN TEBAK KATA ============= -->
+<div id="page-tebak" class="page">
+    <h2 class="text-gradient">🧠 Game Tebak Kata</h2>
+    
+    <div class="card-style">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <span class="text-indigo" style="font-size: 15px; font-weight: 500;">Skor Kamu:</span>
+            <span id="score" style="font-size: 26px; font-weight: 800;" class="text-gradient">0</span>
+        </div>
+        
+        <div style="background: rgba(51,65,85,0.5); border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 18px;">
+            <p style="font-size: 13px; color: #F9A8D4; margin-bottom: 8px;">Soal <span id="questionNumber">1</span> dari <span id="totalQuestions">10</span></p>
+            <h3 id="question" style="font-size: 20px; font-weight: 700; color: #818CF8; margin-bottom: 8px;"></h3>
+            <p id="hint" style="font-size: 14px; color: #6EE7B7; font-style: italic;"></p>
+        </div>
+        
+        <div id="optionsContainer" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;"></div>
+        
+        <p id="feedback" style="text-align: center; font-weight: 500; margin-bottom: 14px; min-height: 24px;"></p>
+        
+        <button id="nextBtn" class="btn-primary" style="display: none;" onclick="loadQuestion()">
+            Soal Berikutnya <i class="fa fa-arrow-right" style="margin-left: 6px;"></i>
+        </button>
+    </div>
+
+    <div class="card-style">
+        <h3 class="text-indigo" style="text-align: center; font-size: 16px; font-weight: 600; margin-bottom: 10px;">📊 Hasil Permainan</h3>
+        <p id="resultMessage" style="text-align: center; font-size: 14px; color: #F9A8D4; margin-bottom: 14px;">Mainkan dulu beberapa soal untuk melihat pesan ini!</p>
+        <button class="btn-outline" onclick="resetGame()">
+            <i class="fa fa-refresh" style="margin-right: 6px;"></i> Mulai Ulang
+        </button>
+    </div>
+</div>
+
+<!-- ============= HALAMAN KONTAK ============= -->
+<div id="page-kontak" class="page">
+    <h2 class="text-gradient">💬 Saran & Pendapat</h2>
+    
+    <div class="card-style">
+        <p class="text-pink" style="line-height: 1.7; margin-bottom: 18px;">
+            Punya saran, pertanyaan, atau ingin berdiskusi seputar web, project, atau hal lainnya? Silakan tulis di bawah ini — pesan kamu akan langsung terkirim ke WhatsApp Vino! 😊
+        </p>
+        
+        <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 18px;">
+            <div>
+                <label class="text-indigo" style="font-size: 14px; font-weight: 500; display: block; margin-bottom: 8px;">Nama Kamu</label>
+                <input type="text" id="senderName" placeholder="Masukkan nama kamu...">
+                <p id="nameError" class="error-text"><i class="fa fa-exclamation-circle"></i> Silakan isi nama kamu terlebih dahulu!</p>
+            </div>
+            <div>
+                <label class="text-indigo" style="font-size: 14px; font-weight: 500; display: block; margin-bottom: 8px;">Pesan / Saran / Pertanyaan</label>
+                <textarea id="messageText" rows="4" placeholder="Tulis pesan kamu di sini..." style="resize: none;"></textarea>
+                <p id="messageError" class="error-text"><i class="fa fa-exclamation-circle"></i> Silakan tulis pesan kamu terlebih dahulu!</p>
+            </div>
+        </div>
+        
+        <button class="btn-success" onclick="sendToWhatsApp()">
+            <i class="fa fa-whatsapp" style="margin-right: 8px;"></i> Kirim Pesan ke WhatsApp
+        </button>
+    </div>
+
+    <div class="card-style" style="text-align: center;">
+        <h3 class="text-indigo" style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">📞 Atau Hubungi Langsung</h3>
+        <a href="https://wa.me/6282125650741" target="_blank" style="color: #6EE7B7; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 6px;">
+            <i class="fa fa-whatsapp"></i> wa.me/6282125650741
+        </a>
+        <p style="font-size: 12px; color: #64748B; margin-top: 12px;">Terima kasih sudah berkunjung! Semoga harimu menyenangkan. 🌟</p>
+    </div>
+</div>
+
+<!-- ============= POPUP WHATSAPP ============= -->
+<div id="waPopup" class="popup-overlay">
+    <div class="popup-box">
+        <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(16,185,129,0.15); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+            <i class="fa fa-whatsapp" style="font-size: 28px; color: #6EE7B7;"></i>
+        </div>
+        <h3 style="font-size: 18px; font-weight: 700; color: #6EE7B7; margin-bottom: 8px;">Berhasil! ✅</h3>
+        <p style="color: #CBD5E1; font-size: 14px; margin-bottom: 20px;">Sedang mengalihkan ke WhatsApp Vino... Silakan tunggu sebentar ya!</p>
+        <button class="btn-outline" onclick="closeWaPopup()" style="max-width: 140px; margin: 0 auto;">Tutup</button>
+    </div>
+</div>
+
+<!-- ============= NAVIGASI ============= -->
+<nav>
+    <div class="nav-container">
+        <div class="nav-item active" data-page="beranda">
+            <i class="fa fa-home"></i>
+            <span>Beranda</span>
+        </div>
+        <div class="nav-item" data-page="biodata">
+            <i class="fa fa-user"></i>
+            <span>Biodata</span>
+        </div>
+        <div class="nav-item" data-page="keahlian">
+            <i class="fa fa-code"></i>
+            <span>Keahlian</span>
+        </div>
+        <div class="nav-item" data-page="project">
+            <i class="fa fa-folder-open"></i>
+            <span>Project</span>
+        </div>
+        <div class="nav-item" data-page="pengalaman">
+            <i class="fa fa-trophy"></i>
+            <span>Pengalaman</span>
+        </div>
+        <div class="nav-item" data-page="tebak">
+            <i class="fa fa-puzzle-piece"></i>
+            <span>Tebak</span>
+        </div>
+        <div class="nav-item" data-page="kontak">
+            <i class="fa fa-comment"></i>
+            <span>Kontak</span>
+        </div>
+    </div>
+</nav>
+
+<!-- ============= JAVASCRIPT ============= -->
+<script>
+    // ========= NAVIGASI =========
+    const navItems = document.querySelectorAll('.nav-item');
+    const pages = document.querySelectorAll('.page');
+
+    navItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const targetPage = this.getAttribute('data-page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById('page-' + targetPage).classList.add('active');
+            navItems.forEach(nav => nav.classList.remove('active'));
+            this.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+
+    // ========= TEBAK KATA — Jawaban TIDAK ditampilkan sebelum dijawab =========
+    const questions = [
+        { question: 'Proses menulis kode agar komputer bisa menjalankan perintah', hint: '', options: ['PEMROGRAMAN', 'MENGETIK', 'MENCETAK', 'MENGGAMBAR'], correctIndex: 0 },
+        { question: 'Jaringan global yang menghubungkan komputer di seluruh dunia', hint: '', options: ['JARINGAN', 'INTERNET', 'SINYAL', 'WIFI'], correctIndex: 1 },
+        { question: 'Penerapan ilmu pengetahuan untuk kebutuhan praktis', hint: '', options: ['ILMUPASTI', 'TEKNIK', 'TEKNOLOGI', 'ELEKTRONIK'], correctIndex: 2 },
+        { question: 'Alat yang mendeteksi perubahan fisik atau lingkungan', hint: '', options: ['KAMERA', 'SENSOR', 'LAMPU', 'ALATUKUR'], correctIndex: 1 },
+        { question: 'Energi yang digunakan untuk menyalakan perangkat elektronik', hint: '', options: ['CAHAYA', 'PANAS', 'LISTRIK', 'AIR'], correctIndex: 2 },
+        { question: 'Perangkat lunak yang berisi instruksi untuk komputer', hint: '', options: ['SOFTWARE', 'HARDWARE', 'MONITOR', 'KEYBOARD'], correctIndex: 0 },
+        { question: 'Bagian fisik dari komputer yang bisa disentuh', hint: '', options: ['SOFTWARE', 'HARDWARE', 'PROGRAM', 'DATA'], correctIndex: 1 },
+        { question: 'Langkah-langkah sistematis untuk memecahkan masalah', hint: '', options: ['KODINGAN', 'ALGORITMA', 'URUTAN', 'RUMUS'], correctIndex: 1 },
+        { question: 'Nama panggilan pemilik profil ini 😄', hint: '', options: ['ANDI', 'BUDI', 'VINO', 'DANI'], correctIndex: 2 },
+        { question: 'Internet ... — jaringan benda yang saling terhubung', hint: '', options: ['ONLINE', 'IoT', 'JARINGAN', 'WEB'], correctIndex: 1 }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let answered = false;
+    const totalQuestions = questions.length;
+    document.getElementById('totalQuestions').textContent = totalQuestions;
+
+    function loadQuestion() {
+        answered = false;
+        document.getElementById('nextBtn').style.display = 'none';
+        document.getElementById('feedback').textContent = '';
+        
+        if (currentQuestionIndex >= totalQuestions) {
+            showFinalResult();
+            return;
+        }
+        
+        const q = questions[currentQuestionIndex];
+        document.getElementById('questionNumber').textContent = currentQuestionIndex + 1;
+        document.getElementById('question').textContent = q.question;
+        document.getElementById('hint').textContent = q.hint ? '💡 Petunjuk: ' + q.hint : '';
+        
+        const container = document.getElementById('optionsContainer');
+        container.innerHTML = '';
+        
+        q.options.forEach((option, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerHTML = `<strong style="color: #94A3B8;">${String.fromCharCode(65 + index)}.</strong> ${option}`;
+            btn.onclick = () => selectOption(index);
+            container.appendChild(btn);
+        });
+    }
+
+    function selectOption(selectedIndex) {
+        if (answered) return;
+        answered = true;
+        
+        const q = questions[currentQuestionIndex];
+        const buttons = document.querySelectorAll('#optionsContainer .option-btn');
+        const feedback = document.getElementById('feedback');
+        
+        buttons[q.correctIndex].classList.add('option-correct');
+        buttons[q.correctIndex].innerHTML = `<i class="fa fa-check-circle" style="margin-right: 8px;"></i>${buttons[q.correctIndex].innerHTML}`;
+        
+        if (selectedIndex === q.correctIndex) {
+            score++;
+            document.getElementById('score').textContent = score;
+            feedback.textContent = '🎉 Benar sekali! Hebat!';
+            feedback.style.color = '#6EE7B7';
+        } else {
+            buttons[selectedIndex].classList.add('option-wrong');
+            buttons[selectedIndex].innerHTML = `<i class="fa fa-times-circle" style="margin-right: 8px;"></i>${buttons[selectedIndex].innerHTML}`;
+            feedback.textContent = `❌ Jawaban benar: ${q.options[q.correctIndex]}`;
+            feedback.style.color = '#FCA5A5';
+        }
+        
+        currentQuestionIndex++;
+        document.getElementById('nextBtn').style.display = 'block';
+        
+        if (currentQuestionIndex >= totalQuestions) {
+            document.getElementById('nextBtn').innerHTML = 'Lihat Hasil <i class="fa fa-trophy" style="margin-left: 6px;"></i>';
+        }
+    }
+
+    function showFinalResult() {
+        const percentage = (score / totalQuestions) * 100;
+        let message = '';
+        if (percentage === 100) message = '🏆 Luar biasa! Skor sempurna! Kamu benar-benar hebat!';
+        else if (percentage >= 75) message = '🌟 Sangat bagus! Pengetahuanmu luas sekali!';
+        else if (percentage >= 50) message = '👍 Bagus! Coba lagi untuk skor yang lebih baik!';
+        else message = '💪 Semangat! Terus belajar dan coba lagi!';
+        
+        document.getElementById('resultMessage').textContent = message;
+        document.getElementById('question').textContent = '🎉 Permainan Selesai!';
+        document.getElementById('hint').textContent = `Skor akhir: ${score}/${totalQuestions}`;
+        document.getElementById('hint').style.fontWeight = '600';
+        document.getElementById('optionsContainer').innerHTML = '';
+        document.getElementById('nextBtn').style.display = 'none';
+    }
+
+    function resetGame() {
+        score = 0;
+        currentQuestionIndex = 0;
+        answered = false;
+        document.getElementById('score').textContent = '0';
+        document.getElementById('resultMessage').textContent = 'Mainkan dulu beberapa soal untuk melihat pesan ini!';
+        document.getElementById('hint').style.fontWeight = 'normal';
+        loadQuestion();
+    }
+
+    loadQuestion();
+
+    // ========= KONTAK & WHATSAPP — Tambah Validasi Pesan =========
+    const waNumber = '6282125650741';
+    const waPopup = document.getElementById('waPopup');
+
+    function openWA() {
+        waPopup.classList.add('show');
+        setTimeout(() => {
+            window.open('https://wa.me/' + waNumber, '_blank');
+        }, 1500);
+    }
+
+    function sendToWhatsApp() {
+        const nameInput = document.getElementById('senderName');
+        const messageInput = document.getElementById('messageText');
+        const nameError = document.getElementById('nameError');
+        const messageError = document.getElementById('messageError');
+        
+        // Sembunyikan error dulu
+        nameError.style.display = 'none';
+        messageError.style.display = 'none';
+        
+        const name = nameInput.value.trim();
+        const message = messageInput.value.trim();
+        let isValid = true;
+        
+        // Validasi nama
+        if (!name) {
+            nameError.style.display = 'block';
+            isValid = false;
+        }
+        
+        // Validasi pesan
+        if (!message) {
+            messageError.style.display = 'block';
+            isValid = false;
+        }
+        
+        // Jika ada yang kosong, berhenti di sini
+        if (!isValid) {
+            return;
+        }
+        
+        // Jika semua terisi, kirim ke WhatsApp
+        const fullMessage = `Halo Vino! 👋%0A%0ADari: ${name}%0A%0APesan:%0A${message}%0A%0A------%0ADikirim dari Profil Vino Prasetyo Al Wahid`;
+        
+        waPopup.classList.add('show');
+        setTimeout(() => {
+            window.open(`https://wa.me/${waNumber}?text=${fullMessage}`, '_blank');
+            nameInput.value = '';
+            messageInput.value = '';
+        }, 1500);
+    }
+
+    function closeWaPopup() {
+        waPopup.classList.remove('show');
+    }
+</script>
+</body>
+</html>
