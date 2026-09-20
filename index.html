@@ -540,54 +540,891 @@
     .button:hover { filter:brightness(1.1); }
     @media (max-width:700px) { .experience-grid,.document { grid-template-columns:1fr; } .contents { position:static; } .gallery { grid-template-columns:1fr; } }
     @media print { body { background:white; color:#111827; } .experience-grid,.back,.contents,.actions { display:none!important; } .document { display:block!important; } .doc-section { background:white; border-color:#d1d5db; break-inside:avoid; } .doc-section p,.doc-section li,.meta { color:#374151; } .doc-head h2,.doc-section h3 { color:#111827; } }
-  </style>
-</head>
-<body>
-  <header><div class="container">
-    <a class="back" href="#pengalaman" onclick="showList()"><i class="fa-solid fa-arrow-left"></i> Kembali ke Pengalaman</a>
-    <h1>Dokumentasi <span class="gradient">Pengalaman</span></h1>
-    <p class="intro">Catatan kegiatan, proses belajar, dan hasil dari pengalaman yang saya ikuti.</p>
-  </div></header>
-  <main class="container" id="pengalaman">
-    <section class="experience-grid" id="experienceList">
-      <article class="experience">
-        <div class="experience-icon"><i class="fa-solid fa-trophy"></i></div>
-        <span class="tag"><i class="fa-solid fa-circle"></i> Sedang berlangsung</span>
-        <h2>Festival Maestro 2026</h2>
-        <p>Kompetisi bidang IoT untuk membuat alat bermanfaat, terhubung ke internet, serta terdokumentasi dengan baik.</p>
-        <button class="open-doc" onclick="openDocument('maestro')">Buka dokumentasi <i class="fa-solid fa-arrow-right"></i></button>
-      </article>
-      <article class="experience">
-        <div class="experience-icon"><i class="fa-solid fa-building-columns"></i></div>
-        <span class="tag"><i class="fa-solid fa-calendar"></i> 19 September 2026</span>
-        <h2>Riset Teknologi di UI</h2>
-        <p>Kegiatan eksplorasi teknologi dengan fokus pada software engineering, keamanan siber, dan pengembangan web.</p>
-        <button class="open-doc" onclick="openDocument('ui')">Buka dokumentasi <i class="fa-solid fa-arrow-right"></i></button>
-      </article>
-    </section>
+<!-- ============= HALAMAN PENGALAMAN ============= --><div id="page-pengalaman" class="page"><style>
+    /* =========================
+       STYLE HALAMAN PENGALAMAN
+    ========================= */
 
-    <section class="document" id="documentView" aria-live="polite">
-      <aside class="contents"><strong>Daftar isi</strong><a href="#ringkasan">Ringkasan</a><a href="#tujuan">Tujuan</a><a href="#proses">Proses kegiatan</a><a href="#hasil">Hasil & pembelajaran</a><a href="#galeri">Galeri dokumentasi</a></aside>
-      <article>
-        <div class="doc-head"><span class="eyebrow" id="docType">Dokumentasi kegiatan</span><h2 id="docTitle">Festival Maestro 2026</h2><div class="meta" id="docMeta"></div></div>
-        <section class="doc-section" id="ringkasan"><h3>Ringkasan</h3><p id="summary"></p></section>
-        <section class="doc-section" id="tujuan"><h3>Tujuan kegiatan</h3><ul id="goals"></ul></section>
-        <section class="doc-section" id="proses"><h3>Proses kegiatan</h3><ul class="timeline" id="steps"></ul></section>
-        <section class="doc-section" id="hasil"><h3>Hasil & pembelajaran</h3><p id="learning"></p></section>
-        <section class="doc-section" id="galeri"><h3>Galeri dokumentasi</h3><div class="gallery"><div class="photo"><i class="fa-regular fa-image"></i><br>Tambahkan foto persiapan</div><div class="photo"><i class="fa-regular fa-image"></i><br>Tambahkan foto proses</div><div class="photo"><i class="fa-regular fa-image"></i><br>Tambahkan foto hasil</div></div></section>
-        <div class="actions"><button class="button" onclick="showList()"><i class="fa-solid fa-arrow-left"></i> Semua pengalaman</button></div>
-      </article>
-    </section>
-  </main>
-  <script>
+    .experience-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .experience {
+        background: linear-gradient(
+            145deg,
+            rgba(27,37,66,.96),
+            rgba(20,27,49,.96)
+        );
+        border: 1px solid #2b385d;
+        border-radius: 18px;
+        padding: 22px;
+        box-shadow: 0 14px 40px rgba(0,0,0,.2);
+    }
+
+    .experience-icon {
+        width: 48px;
+        height: 48px;
+        display: grid;
+        place-items: center;
+        border-radius: 13px;
+        font-size: 1.25rem;
+        margin-bottom: 18px;
+        background: linear-gradient(135deg,#f59e0b,#f97316);
+    }
+
+    .experience:nth-child(2) .experience-icon {
+        background: linear-gradient(135deg,#14b8a6,#059669);
+    }
+
+    .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: .75rem;
+        font-weight: 700;
+        border-radius: 999px;
+        padding: 5px 9px;
+        color: #a7f3d0;
+        background: rgba(16,185,129,.13);
+    }
+
+    .experience h2 {
+        margin: 12px 0 8px;
+        font-size: 1.18rem;
+    }
+
+    .experience p {
+        color: #a9b4d0;
+        line-height: 1.65;
+        font-size: .92rem;
+    }
+
+    .open-doc {
+        border: 0;
+        background: none;
+        color: #a5b4fc;
+        font-weight: 700;
+        padding: 8px 0 0;
+        cursor: pointer;
+    }
+
+    .open-doc:hover {
+        color: white;
+    }
+
+    /* =========================
+       DOKUMENTASI
+    ========================= */
+
+    .document {
+        display: none;
+        grid-template-columns: 230px minmax(0,1fr);
+        gap: 28px;
+        align-items: start;
+    }
+
+    .document.visible {
+        display: grid;
+    }
+
+    .contents {
+        position: sticky;
+        top: 20px;
+        padding: 18px;
+        border: 1px solid #2b385d;
+        border-radius: 15px;
+        background: rgba(20,27,49,.8);
+    }
+
+    .contents strong {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .contents a {
+        display: block;
+        padding: 8px 7px;
+        color: #a9b4d0;
+        text-decoration: none;
+        font-size: .86rem;
+        border-left: 2px solid transparent;
+    }
+
+    .contents a:hover {
+        color: #fff;
+        border-color: #818cf8;
+    }
+
+    .doc-head {
+        border-bottom: 1px solid #2b385d;
+        padding-bottom: 25px;
+        margin-bottom: 26px;
+    }
+
+    .doc-head .eyebrow {
+        color: #5eead4;
+        font-weight: 700;
+        font-size: .82rem;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+    }
+
+    .doc-head h2 {
+        font-size: clamp(1.6rem,3vw,2.2rem);
+        margin: 10px 0;
+    }
+
+    .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+        color: #a9b4d0;
+        font-size: .86rem;
+    }
+
+    .meta span {
+        padding: 7px 10px;
+        background: rgba(129,140,248,.1);
+        border-radius: 8px;
+    }
+
+    .doc-section {
+        scroll-margin-top: 20px;
+        margin: 0 0 24px;
+        padding: 23px;
+        border-radius: 16px;
+        border: 1px solid #2b385d;
+        background: rgba(20,27,49,.76);
+    }
+
+    .doc-section h3 {
+        font-size: 1.1rem;
+        margin: 0 0 11px;
+        color: #c7d2fe;
+    }
+
+    .doc-section p,
+    .doc-section li {
+        color: #a9b4d0;
+        line-height: 1.72;
+    }
+
+    .doc-section ul {
+        padding-left: 20px;
+        margin: 8px 0 0;
+    }
+
+    .timeline {
+        list-style: none;
+        padding: 0 !important;
+    }
+
+    .timeline li {
+        padding: 0 0 18px 24px;
+        position: relative;
+        border-left: 1px solid #45527a;
+    }
+
+    .timeline li:last-child {
+        border: 0;
+        padding-bottom: 0;
+    }
+
+    .timeline li::before {
+        content: "";
+        position: absolute;
+        left: -5px;
+        top: 7px;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #f472b6;
+    }
+
+    .timeline b {
+        color: #e0e7ff;
+        display: block;
+    }
+
+    /* =========================
+       GALERI FOTO
+    ========================= */
+
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+
+    .photo {
+        min-height: 180px;
+        padding: 10px;
+        color: #a5b4fc;
+        border: 1px dashed #52618b;
+        border-radius: 12px;
+        background: rgba(129,140,248,.06);
+        overflow: hidden;
+    }
+
+    .photo img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+    }
+
+    .photo p {
+        margin: 8px 0 0;
+        text-align: center;
+        color: #a5b4fc;
+        font-weight: 600;
+    }
+
+    .actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 25px;
+    }
+
+    .button {
+        border: 1px solid #2b385d;
+        padding: 10px 14px;
+        color: white;
+        background: #1b2542;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 700;
+    }
+
+    .button.primary {
+        border: 0;
+        background: linear-gradient(100deg,#6366f1,#a855f7);
+    }
+
+    .button:hover {
+        filter: brightness(1.1);
+    }
+
+    /* =========================
+       RESPONSIVE HP
+    ========================= */
+
+    @media (max-width:700px) {
+
+        .experience-list {
+            grid-template-columns: 1fr;
+        }
+
+        .document {
+            grid-template-columns: 1fr;
+        }
+
+        .contents {
+            position: static;
+        }
+
+        .gallery {
+            grid-template-columns: 1fr;
+        }
+
+        .photo img {
+            height: 220px;
+        }
+    }
+</style>
+
+
+<!-- =========================
+     DAFTAR PENGALAMAN
+========================= -->
+
+<section class="experience-list" id="experienceList">
+
+    <!-- FESTIVAL MAESTRO -->
+
+    <article class="experience">
+
+        <div class="experience-icon">
+            <i class="fa fa-trophy"></i>
+        </div>
+
+        <span class="tag">
+            <i class="fa fa-circle"></i>
+            Sedang berlangsung
+        </span>
+
+        <h2>Festival Maestro 2026</h2>
+
+        <p>
+            Kompetisi bidang IoT untuk membuat alat bermanfaat,
+            terhubung ke internet, serta terdokumentasi dengan baik.
+        </p>
+
+        <button
+            class="open-doc"
+            onclick="openDocument('maestro')">
+
+            Buka dokumentasi
+            <i class="fa fa-arrow-right"></i>
+
+        </button>
+
+    </article>
+
+
+    <!-- RISET UI -->
+
+    <article class="experience">
+
+        <div class="experience-icon">
+            <i class="fa fa-building"></i>
+        </div>
+
+        <span class="tag">
+            <i class="fa fa-calendar"></i>
+            19 September 2026
+        </span>
+
+        <h2>Riset Teknologi di UI</h2>
+
+        <p>
+            Kegiatan eksplorasi teknologi dengan fokus pada
+            software engineering, keamanan siber, dan pengembangan web.
+        </p>
+
+        <button
+            class="open-doc"
+            onclick="openDocument('ui')">
+
+            Buka dokumentasi
+            <i class="fa fa-arrow-right"></i>
+
+        </button>
+
+    </article>
+
+</section>
+
+
+<!-- =========================
+     HALAMAN DETAIL DOKUMENTASI
+========================= -->
+
+<section
+    class="document"
+    id="documentView"
+    aria-live="polite">
+
+    <!-- DAFTAR ISI -->
+
+    <aside class="contents">
+
+        <strong>Daftar Isi</strong>
+
+        <a href="#ringkasan">
+            Ringkasan
+        </a>
+
+        <a href="#tujuan">
+            Tujuan
+        </a>
+
+        <a href="#proses">
+            Proses Kegiatan
+        </a>
+
+        <a href="#hasil">
+            Hasil & Pembelajaran
+        </a>
+
+        <a href="#galeri">
+            Galeri Dokumentasi
+        </a>
+
+    </aside>
+
+
+    <!-- ISI DOKUMENTASI -->
+
+    <article>
+
+        <div class="doc-head">
+
+            <span
+                class="eyebrow"
+                id="docType">
+                Dokumentasi Kegiatan
+            </span>
+
+            <h2 id="docTitle">
+                Festival Maestro 2026
+            </h2>
+
+            <div
+                class="meta"
+                id="docMeta">
+            </div>
+
+        </div>
+
+
+        <!-- RINGKASAN -->
+
+        <section
+            class="doc-section"
+            id="ringkasan">
+
+            <h3>
+                Ringkasan
+            </h3>
+
+            <p id="summary"></p>
+
+        </section>
+
+
+        <!-- TUJUAN -->
+
+        <section
+            class="doc-section"
+            id="tujuan">
+
+            <h3>
+                Tujuan Kegiatan
+            </h3>
+
+            <ul id="goals"></ul>
+
+        </section>
+
+
+        <!-- PROSES -->
+
+        <section
+            class="doc-section"
+            id="proses">
+
+            <h3>
+                Proses Kegiatan
+            </h3>
+
+            <ul
+                class="timeline"
+                id="steps">
+            </ul>
+
+        </section>
+
+
+        <!-- HASIL -->
+
+        <section
+            class="doc-section"
+            id="hasil">
+
+            <h3>
+                Hasil & Pembelajaran
+            </h3>
+
+            <p id="learning"></p>
+
+        </section>
+
+
+        <!-- =========================
+             GALERI FOTO
+        ========================= -->
+
+        <section
+            class="doc-section"
+            id="galeri">
+
+            <h3>
+                Galeri Dokumentasi
+            </h3>
+
+            <div class="gallery">
+
+                <!-- FOTO PERSIAPAN -->
+
+                <div class="photo">
+
+                    <img
+                        id="photoPreparation"
+                        src=""
+                        alt="Foto Persiapan">
+
+                    <p>
+                        Persiapan
+                    </p>
+
+                </div>
+
+
+                <!-- FOTO PROSES -->
+
+                <div class="photo">
+
+                    <img
+                        id="photoProcess"
+                        src=""
+                        alt="Foto Proses">
+
+                    <p>
+                        Proses
+                    </p>
+
+                </div>
+
+
+                <!-- FOTO HASIL -->
+
+                <div class="photo">
+
+                    <img
+                        id="photoResult"
+                        src=""
+                        alt="Foto Hasil">
+
+                    <p>
+                        Hasil
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TOMBOL KEMBALI -->
+
+        <div class="actions">
+
+            <button
+                class="button"
+                onclick="showList()">
+
+                <i class="fa fa-arrow-left"></i>
+                Semua Pengalaman
+
+            </button>
+
+        </div>
+
+    </article>
+
+</section>
+
+
+<!-- =========================
+     JAVASCRIPT PENGALAMAN
+========================= -->
+
+<script>
+
+    /*
+    ==================================================
+    DATA DOKUMENTASI
+    ==================================================
+    */
+
     const docs = {
-      maestro: { type:'Kompetisi IoT', title:'Festival Maestro 2026', meta:['2026','Bidang IoT','SMK/SMA'], summary:'Festival Maestro 2026 adalah kompetisi yang menjadi ruang untuk mengembangkan solusi Internet of Things. Pada kegiatan ini, saya menyiapkan alat yang dapat membantu kebutuhan manusia dan dapat dipantau melalui internet.', goals:['Membangun solusi IoT yang bermanfaat bagi kehidupan sehari-hari.','Menerapkan kemampuan pemrograman, elektronik, dan dokumentasi proyek.','Meningkatkan kemampuan presentasi serta kerja tim.'], steps:[['Riset masalah','Mengidentifikasi masalah yang dapat dibantu dengan teknologi IoT.'],['Perancangan alat','Menyusun kebutuhan komponen, alur kerja, dan rancangan sistem.'],['Pembuatan & pengujian','Merakit alat, menulis program, lalu menguji sensor dan koneksi internet.'],['Dokumentasi','Mencatat proses, kendala, perbaikan, dan hasil pengujian.']], learning:'Saya belajar bahwa proyek IoT bukan hanya soal membuat perangkat bekerja. Perencanaan, pengujian berulang, dokumentasi yang rapi, serta cara menjelaskan manfaat alat juga sama pentingnya.' },
-      ui: { type:'Riset teknologi', title:'Riset Teknologi di Universitas Indonesia', meta:['19 September 2026','Universitas Indonesia','Eksplorasi teknologi'], summary:'Kegiatan riset teknologi di Universitas Indonesia menjadi kesempatan untuk mengenal lingkungan belajar dan perkembangan bidang teknologi secara lebih dekat. Fokus yang saya pilih adalah software engineering, cyber security, dan web development.', goals:['Memahami gambaran kerja pada bidang software engineering.','Mengenal dasar keamanan siber dan kebiasaan digital yang aman.','Memperluas wawasan tentang pengembangan web dan peluang karier teknologi.'], steps:[['Persiapan topik','Menentukan bidang yang selaras dengan kemampuan dan minat saya.'],['Mengikuti sesi riset','Mencatat materi, contoh kasus, dan hal baru yang dipelajari.'],['Diskusi','Mengajukan pertanyaan terkait jalur belajar serta praktik industri.'],['Refleksi','Menyusun catatan pembelajaran dan rencana pengembangan skill berikutnya.']], learning:'Pengalaman ini membantu saya melihat hubungan antara materi sekolah, kebutuhan industri, dan langkah belajar yang dapat saya lakukan secara bertahap.' }
+
+        /* =========================
+           FESTIVAL MAESTRO
+        ========================= */
+
+        maestro: {
+
+            type: 'Kompetisi IoT',
+
+            title: 'Festival Maestro 2026',
+
+            meta: [
+                '2026',
+                'Bidang IoT',
+                'SMK/SMA'
+            ],
+
+            /*
+            NAMA FILE FOTO MAESTRO
+            */
+
+            photos: {
+
+                preparation:
+                    'foto/maestro-persiapan.jpg',
+
+                process:
+                    'foto/maestro-proses.jpg',
+
+                result:
+                    'foto/maestro-hasil.jpg'
+
+            },
+
+            summary:
+                'Festival Maestro 2026 adalah kompetisi yang menjadi ruang untuk mengembangkan solusi Internet of Things. Pada kegiatan ini, saya menyiapkan alat yang dapat membantu kebutuhan manusia dan dapat dipantau melalui internet.',
+
+            goals: [
+
+                'Membangun solusi IoT yang bermanfaat bagi kehidupan sehari-hari.',
+
+                'Menerapkan kemampuan pemrograman, elektronik, dan dokumentasi proyek.',
+
+                'Meningkatkan kemampuan presentasi serta kerja tim.'
+
+            ],
+
+            steps: [
+
+                [
+                    'Riset masalah',
+                    'Mengidentifikasi masalah yang dapat dibantu dengan teknologi IoT.'
+                ],
+
+                [
+                    'Perancangan alat',
+                    'Menyusun kebutuhan komponen, alur kerja, dan rancangan sistem.'
+                ],
+
+                [
+                    'Pembuatan & pengujian',
+                    'Merakit alat, menulis program, lalu menguji sensor dan koneksi internet.'
+                ],
+
+                [
+                    'Dokumentasi',
+                    'Mencatat proses, kendala, perbaikan, dan hasil pengujian.'
+                ]
+
+            ],
+
+            learning:
+                'Saya belajar bahwa proyek IoT bukan hanya soal membuat perangkat bekerja. Perencanaan, pengujian berulang, dokumentasi yang rapi, serta cara menjelaskan manfaat alat juga sama pentingnya.'
+
+        },
+
+
+        /* =========================
+           RISET UI
+        ========================= */
+
+        ui: {
+
+            type: 'Riset Teknologi',
+
+            title:
+                'Riset Teknologi di Universitas Indonesia',
+
+            meta: [
+
+                '19 September 2026',
+
+                'Universitas Indonesia',
+
+                'Eksplorasi Teknologi'
+
+            ],
+
+            /*
+            NAMA FILE FOTO UI
+            */
+
+            photos: {
+
+                preparation:
+                    'foto/ui-persiapan.jpg',
+
+                process:
+                    'foto/ui-proses.jpg',
+
+                result:
+                    'foto/ui-hasil.jpg'
+
+            },
+
+            summary:
+                'Kegiatan riset teknologi di Universitas Indonesia menjadi kesempatan untuk mengenal lingkungan belajar dan perkembangan bidang teknologi secara lebih dekat. Fokus yang saya pilih adalah software engineering, cyber security, dan web development.',
+
+            goals: [
+
+                'Memahami gambaran kerja pada bidang software engineering.',
+
+                'Mengenal dasar keamanan siber dan kebiasaan digital yang aman.',
+
+                'Memperluas wawasan tentang pengembangan web dan peluang karier teknologi.'
+
+            ],
+
+            steps: [
+
+                [
+                    'Persiapan topik',
+                    'Menentukan bidang yang selaras dengan kemampuan dan minat saya.'
+                ],
+
+                [
+                    'Mengikuti sesi riset',
+                    'Mencatat materi, contoh kasus, dan hal baru yang dipelajari.'
+                ],
+
+                [
+                    'Diskusi',
+                    'Mengajukan pertanyaan terkait jalur belajar serta praktik industri.'
+                ],
+
+                [
+                    'Refleksi',
+                    'Menyusun catatan pembelajaran dan rencana pengembangan skill berikutnya.'
+                ]
+
+            ],
+
+            learning:
+                'Pengalaman ini membantu saya melihat hubungan antara materi sekolah, kebutuhan industri, dan langkah belajar yang dapat saya lakukan secara bertahap.'
+
+        }
+
     };
-    function openDocument(id) { const d=docs[id]; document.getElementById('docType').textContent=d.type; document.getElementById('docTitle').textContent=d.title; document.getElementById('docMeta').innerHTML=d.meta.map(x=>`<span>${x}</span>`).join(''); document.getElementById('summary').textContent=d.summary; document.getElementById('goals').innerHTML=d.goals.map(x=>`<li>${x}</li>`).join(''); document.getElementById('steps').innerHTML=d.steps.map(x=>`<li><b>${x[0]}</b>${x[1]}</li>`).join(''); document.getElementById('learning').textContent=d.learning; document.getElementById('experienceList').style.display='none'; document.getElementById('documentView').classList.add('visible'); window.scrollTo({top:0,behavior:'smooth'}); }
-    function showList() { document.getElementById('documentView').classList.remove('visible'); document.getElementById('experienceList').style.display='grid'; }
-  </script>
-</body>
+
+
+    /*
+    ==================================================
+    FUNGSI MEMBUKA DOKUMENTASI
+    ==================================================
+    */
+
+    function openDocument(id) {
+
+        const d = docs[id];
+
+
+        /*
+        MENAMPILKAN INFORMASI DOKUMENTASI
+        */
+
+        document.getElementById('docType')
+            .textContent = d.type;
+
+
+        document.getElementById('docTitle')
+            .textContent = d.title;
+
+
+        document.getElementById('docMeta')
+            .innerHTML =
+            d.meta
+                .map(x => `<span>${x}</span>`)
+                .join('');
+
+
+        document.getElementById('summary')
+            .textContent = d.summary;
+
+
+        document.getElementById('goals')
+            .innerHTML =
+            d.goals
+                .map(x => `<li>${x}</li>`)
+                .join('');
+
+
+        document.getElementById('steps')
+            .innerHTML =
+            d.steps
+                .map(x =>
+                    `<li>
+                        <b>${x[0]}</b>
+                        ${x[1]}
+                    </li>`
+                )
+                .join('');
+
+
+        document.getElementById('learning')
+            .textContent = d.learning;
+
+
+        /*
+        ==================================================
+        BAGIAN FOTO
+        ==================================================
+
+        FOTO AKAN OTOMATIS BERUBAH SESUAI DOKUMENTASI
+        YANG DIPILIH.
+        */
+
+        document.getElementById('photoPreparation')
+            .src = d.photos.preparation;
+
+
+        document.getElementById('photoProcess')
+            .src = d.photos.process;
+
+
+        document.getElementById('photoResult')
+            .src = d.photos.result;
+
+
+        /*
+        SEMBUNYIKAN DAFTAR PENGALAMAN
+        */
+
+        document.getElementById('experienceList')
+            .style.display = 'none';
+
+
+        /*
+        TAMPILKAN DOKUMENTASI
+        */
+
+        document.getElementById('documentView')
+            .classList.add('visible');
+
+
+        /*
+        KEMBALI KE BAGIAN ATAS
+        */
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+    }
+
+
+    /*
+    ==================================================
+    FUNGSI KEMBALI KE DAFTAR PENGALAMAN
+    ==================================================
+    */
+
+    function showList() {
+
+        document.getElementById('documentView')
+            .classList.remove('visible');
+
+
+        document.getElementById('experienceList')
+            .style.display = 'grid';
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+    }
+
+</script>
+
 </div>
 
 <!-- ============= HALAMAN KONTAK ============= -->
