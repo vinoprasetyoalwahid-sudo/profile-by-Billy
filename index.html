@@ -540,10 +540,8 @@
     .button:hover { filter:brightness(1.1); }
     @media (max-width:700px) { .experience-grid,.document { grid-template-columns:1fr; } .contents { position:static; } .gallery { grid-template-columns:1fr; } }
     @media print { body { background:white; color:#111827; } .experience-grid,.back,.contents,.actions { display:none!important; } .document { display:block!important; } .doc-section { background:white; border-color:#d1d5db; break-inside:avoid; } .doc-section p,.doc-section li,.meta { color:#374151; } .doc-head h2,.doc-section h3 { color:#111827; } }
-<!-- ============= HALAMAN PENGALAMAN ============= --><div id="page-pengalaman" class="page"><style>
-    /* =========================
-       STYLE HALAMAN PENGALAMAN
-    ========================= */
+    <div id="page-pengalaman" class="page"><style>
+
 
     .experience-list {
         display: grid;
@@ -614,9 +612,7 @@
         color: white;
     }
 
-    /* =========================
-       DOKUMENTASI
-    ========================= */
+    /* CODE DOKUMENTASI */
 
     .document {
         display: none;
@@ -748,9 +744,7 @@
         display: block;
     }
 
-    /* =========================
-       GALERI FOTO
-    ========================= */
+    /* GALERI FOTO */
 
     .gallery {
         display: grid;
@@ -808,10 +802,6 @@
     .button:hover {
         filter: brightness(1.1);
     }
-
-    /* =========================
-       RESPONSIVE HP
-    ========================= */
 
     @media (max-width:700px) {
 
@@ -910,9 +900,7 @@
 </section>
 
 
-<!-- =========================
-     HALAMAN DETAIL DOKUMENTASI
-========================= -->
+<!-- HALAMAN DETAIL DOKUMENTASI -->
 
 <section
     class="document"
@@ -947,9 +935,6 @@
 
     </aside>
 
-
-    <!-- ISI DOKUMENTASI -->
-
     <article>
 
         <div class="doc-head">
@@ -971,9 +956,6 @@
 
         </div>
 
-
-        <!-- RINGKASAN -->
-
         <section
             class="doc-section"
             id="ringkasan">
@@ -986,9 +968,6 @@
 
         </section>
 
-
-        <!-- TUJUAN -->
-
         <section
             class="doc-section"
             id="tujuan">
@@ -1000,9 +979,6 @@
             <ul id="goals"></ul>
 
         </section>
-
-
-        <!-- PROSES -->
 
         <section
             class="doc-section"
@@ -1019,9 +995,6 @@
 
         </section>
 
-
-        <!-- HASIL -->
-
         <section
             class="doc-section"
             id="hasil">
@@ -1034,11 +1007,6 @@
 
         </section>
 
-
-        <!-- =========================
-             GALERI FOTO
-        ========================= -->
-
         <section
             class="doc-section"
             id="galeri">
@@ -1048,9 +1016,6 @@
             </h3>
 
             <div class="gallery">
-
-                <!-- FOTO PERSIAPAN -->
-
                 <div class="photo">
 
                     <img
@@ -1064,9 +1029,6 @@
 
                 </div>
 
-
-                <!-- FOTO PROSES -->
-
                 <div class="photo">
 
                     <img
@@ -1079,9 +1041,6 @@
                     </p>
 
                 </div>
-
-
-                <!-- FOTO HASIL -->
 
                 <div class="photo">
 
@@ -1099,9 +1058,6 @@
             </div>
 
         </section>
-
-
-        <!-- TOMBOL KEMBALI -->
 
         <div class="actions">
 
@@ -1121,24 +1077,11 @@
 </section>
 
 
-<!-- =========================
-     JAVASCRIPT PENGALAMAN
-========================= -->
+<!-- JAVASCRIPT -->
 
 <script>
 
-    /*
-    ==================================================
-    DATA DOKUMENTASI
-    ==================================================
-    */
-
     const docs = {
-
-        /* =========================
-           FESTIVAL MAESTRO
-        ========================= */
-
         maestro: {
 
             type: 'Kompetisi IoT',
@@ -1150,11 +1093,6 @@
                 'Bidang IoT',
                 'SMK/SMA'
             ],
-
-            /*
-            NAMA FILE FOTO MAESTRO
-            */
-
             photos: {
 
                 preparation:
@@ -1165,7 +1103,6 @@
 
                 result:
                     'foto/maestro-hasil.jpg'
-
             },
 
             summary:
@@ -1209,12 +1146,6 @@
                 'Saya belajar bahwa proyek IoT bukan hanya soal membuat perangkat bekerja. Perencanaan, pengujian berulang, dokumentasi yang rapi, serta cara menjelaskan manfaat alat juga sama pentingnya.'
 
         },
-
-
-        /* =========================
-           RISET UI
-        ========================= */
-
         ui: {
 
             type: 'Riset Teknologi',
@@ -1231,10 +1162,6 @@
                 'Eksplorasi Teknologi'
 
             ],
-
-            /*
-            NAMA FILE FOTO UI
-            */
 
             photos: {
 
@@ -1293,21 +1220,9 @@
 
     };
 
-
-    /*
-    ==================================================
-    FUNGSI MEMBUKA DOKUMENTASI
-    ==================================================
-    */
-
     function openDocument(id) {
 
         const d = docs[id];
-
-
-        /*
-        MENAMPILKAN INFORMASI DOKUMENTASI
-        */
 
         document.getElementById('docType')
             .textContent = d.type;
@@ -1350,16 +1265,6 @@
         document.getElementById('learning')
             .textContent = d.learning;
 
-
-        /*
-        ==================================================
-        BAGIAN FOTO
-        ==================================================
-
-        FOTO AKAN OTOMATIS BERUBAH SESUAI DOKUMENTASI
-        YANG DIPILIH.
-        */
-
         document.getElementById('photoPreparation')
             .src = d.photos.preparation;
 
@@ -1371,40 +1276,18 @@
         document.getElementById('photoResult')
             .src = d.photos.result;
 
-
-        /*
-        SEMBUNYIKAN DAFTAR PENGALAMAN
-        */
-
         document.getElementById('experienceList')
             .style.display = 'none';
 
-
-        /*
-        TAMPILKAN DOKUMENTASI
-        */
-
         document.getElementById('documentView')
             .classList.add('visible');
-
-
-        /*
-        KEMBALI KE BAGIAN ATAS
-        */
-
+        
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
 
     }
-
-
-    /*
-    ==================================================
-    FUNGSI KEMBALI KE DAFTAR PENGALAMAN
-    ==================================================
-    */
 
     function showList() {
 
